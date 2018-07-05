@@ -5,7 +5,7 @@ matrix:
       script:
         - cargo test --manifest-path ./reverse/Cargo.toml
 
-    - language: go
-      go: "1.10"
-      script:
-        - go build ./frontend/main.go
+    # - language: go
+    #   go: "1.10"
+    #   script:
+    #     - go build ./frontend/main.go
