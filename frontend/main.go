@@ -23,7 +23,7 @@ func main() {
 
 func reverseText(text string) (string, error) {
 	conn, err := grpc.Dial(
-		"localhost:8654",
+		"localhost:9191",
 		grpc.WithInsecure(),
 	)
 	if err != nil {

@@ -1,0 +1,15 @@
+matrix:
+  include:
+    - language: rust
+      rust:
+        - stable
+        - nightly
+      script:
+        - cargo test --manifest-path ./reverse/Cargo.toml
+
+    - language: go
+      go:
+      - "1.10"
+      - "tip"
+      script:
+        - go build ./frontend/main.go

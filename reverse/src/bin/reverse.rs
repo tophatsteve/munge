@@ -25,15 +25,20 @@ impl Reverse for ReverseServiceImpl {
     ) -> grpc::SingleResponse<ReverseResponse> {
         info!("received - {}", req.text);
         let mut r = ReverseResponse::new();
-        r.text = req.text.chars().rev().collect::<String>();
+        r.text = reverse_text(req.text);
         info!("responding with - {}", r.text);
         grpc::SingleResponse::completed(r)
     }
 }
 
+fn reverse_text(text: String) -> String {
+    text.chars().rev().collect::<String>()
+}
+
 fn main() {
     env_logger::init();
 
+    #[allow(unused_assignments)]
     let mut port: u16 = 80;
 
     match env::var("PORT") {
@@ -51,5 +56,16 @@ fn main() {
 
     loop {
         thread::park();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_reverse() {
+        let reversed_text = reverse_text(String::from("test"));
+        assert_eq!(reversed_text, String::from("tset"));
     }
 }
