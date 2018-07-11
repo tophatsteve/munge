@@ -8,8 +8,8 @@ import (
 	"log"
 	"net/http"
 
-	"./reverse"
 	"github.com/julienschmidt/httprouter"
+	"github.com/tophatsteve/munge/frontend/reverse"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
@@ -23,7 +23,7 @@ func main() {
 
 func reverseText(text string) (string, error) {
 	conn, err := grpc.Dial(
-		"localhost:9191",
+		"reverse-service:9191",
 		grpc.WithInsecure(),
 	)
 	if err != nil {
