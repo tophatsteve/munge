@@ -1,0 +1,5 @@
+FROM scratch
+ADD frontend frontend
+ENV PORT 8333
+EXPOSE 8333
+ENTRYPOINT  ["/frontend"]

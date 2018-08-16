@@ -1,0 +1,5 @@
+FROM scratch
+ADD capitalise capitalise
+ENV PORT 9292
+EXPOSE 9292
+ENTRYPOINT  ["/capitalise"]

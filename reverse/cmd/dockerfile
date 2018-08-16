@@ -1,0 +1,5 @@
+FROM scratch
+ADD reverse reverse
+ENV PORT 9191
+EXPOSE 9191
+ENTRYPOINT  ["/reverse"]
