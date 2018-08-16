@@ -11,8 +11,8 @@ godeps:
 
 build: godeps
 	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./frontend/frontend ./frontend/main.go
-	# docker run --rm -it -v  $(pwd)/reverse/:/home/rust/src ekidd/rust-musl-builder cargo build --release
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./reverse/cmd/reverse ./reverse/cmd/main.go
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./capitalise/cmd/capitalise ./capitalise/cmd/main.go
 
 # clean:
 # 	rm ./frontend/frontend
-# 	rm -rf ./reverse/target/x86_64-unknown-linux-musl

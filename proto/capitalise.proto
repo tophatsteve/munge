@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package capitalise;
+
+service Capitalise {
+    rpc capitalise(CapitaliseRequest) returns (CapitaliseResponse);
+}
+
+message CapitaliseRequest {
+    string text = 1;
+}
+
+message CapitaliseResponse {
+    string text = 1;
+}
