@@ -20,7 +20,7 @@ containerize: build
 	docker build -t tophatsteve/capitalise:latest ./capitalise/cmd
 
 deploy: containerize
-	echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+	echo $(DOCKER_PASSWORD) | docker login -u $(DOCKER_USERNAME) --password-stdin
 	docker push tophatsteve/frontend:latest
 	docker push tophatsteve/reverse:latest
 	docker push tophatsteve/capitalise:latest
