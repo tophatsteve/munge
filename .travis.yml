@@ -3,7 +3,10 @@ services:
 - docker
 language: go
 go: '1.10'
-script: make deploy
+before_script: 
+  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+script: 
+  make deploy
 env:
   global:
   - secure: T+wQQUnf3PLH+KRteD2wBh2GoI6O5iX1Fgtk1CUEo8N7G6Z0AFL81v3kzr3758qlVMR5HxxB+pUCpW5U4E69EmKVO3vY9Y7SHwL68Ejk169jLxda92HBnXPTHSccIvnHNuDWwmsrFAK3zgoPSksnzUk6NIA0DnzTrIA4c7Z+SxLHIWE+h5K4vWObDOmU/3HuQT7u3/7RJ2I97H4c45VtEJzG3nlRb/oKje+xTPEf6U37/7D3hxMqePG/EroBCupbllPRXvrTKlPR7s5fmf3U3QPau6fzCX2biIkq4zQ7VLXD6+NHlnUjv7DPr7gTej3Y0OweU7QR/uOG/Mp21sP5m0CH9ThrflMtiIu65NNNuTgVFg6IT3A71RU+xhal5fgReDGHChr0tfkrIJgsrwK3nUeTx3yXhgEycUpG3KsbC5+Q2+w2V33Rqk0BbgDIjfK5RWmpUpsPY4sig3f1fo8gjX+V9gbHtKW7JVQg9xWRIUHxnimqltDw3WZsuDTeYBILDM+60n2NTE59iMGmgS7D73W4bTAcgmVeM+t+CrFhECo9iuk9K8Os8OjOSmxkLW01NG+v3AZfpA3Njtq8oKom6gYoJRsVdYbWvB2Tgq0Mye01LFv6gJMvlaoTgTStuwZ/D4CNBphca0Yxnu0wtHpIaC1BlZuowsLlvgBe2BmjCS4=
