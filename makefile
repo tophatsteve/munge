@@ -4,7 +4,7 @@ DEPENDENCIES := \
 	google.golang.org/grpc \
 	github.com/julienschmidt/httprouter
 
-.PHONY: build clean godeps containerize
+.PHONY: build clean godeps containerize deploy
 
 godeps: 
 	go get $(DEPENDENCIES)
@@ -18,6 +18,12 @@ containerize: build
 	docker build -t tophatsteve/frontend:latest ./frontend
 	docker build -t tophatsteve/reverse:latest ./reverse/cmd
 	docker build -t tophatsteve/capitalise:latest ./capitalise/cmd
+
+deploy: containerize
+	echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+	docker push tophatsteve/frontend:latest
+	docker push tophatsteve/reverse:latest
+	docker push tophatsteve/capitalise:latest
 
 clean:
 	rm -f ./frontend/frontend
