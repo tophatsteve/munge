@@ -4,3 +4,5 @@ services:
 language: go
 go: '1.10'
 script: make deploy
+notifications:
+    slack: codebazaar:dfUey8QKvSJBHhdpNaFBSjMH
