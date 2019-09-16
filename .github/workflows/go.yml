@@ -32,4 +32,5 @@ jobs:
 
     - name: Containerize
       uses: actions/docker/cli@master
-      args: build -t tophatsteve/frontend:latest ./frontend
+      with:
+        args: build -t tophatsteve/frontend:latest ./frontend
