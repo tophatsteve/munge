@@ -24,11 +24,12 @@ jobs:
             dep ensure
         fi
 
-    - name: Build capitalise
-      run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./capitalise/cmd/capitalise ./capitalise/cmd/main.go
+    - name: Build 
+      run: |
+        CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./capitalise/cmd/capitalise ./capitalise/cmd/main.go
+        CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./reverse/cmd/reverse ./reverse/cmd/main.go    
+        CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./frontend/frontend ./frontend/main.go
 
-    - name: Build reverse
-      run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./reverse/cmd/reverse ./reverse/cmd/main.go    
-
-    - name: Build frontend
-      run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./frontend/frontend ./frontend/main.go
+    - name: Containerize
+      uses: actions/docker/cli@master
+      run: docker build -t tophatsteve/frontend:latest ./frontend
