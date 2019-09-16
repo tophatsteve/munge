@@ -32,4 +32,4 @@ jobs:
 
     - name: Containerize
       uses: actions/docker/cli@master
-      run: docker build -t tophatsteve/frontend:latest ./frontend
+      args: build -t tophatsteve/frontend:latest ./frontend
