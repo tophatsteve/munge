@@ -30,7 +30,25 @@ jobs:
         CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./reverse/cmd/reverse ./reverse/cmd/main.go    
         CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./frontend/frontend ./frontend/main.go
 
-    - name: Containerize
+    - name: Containerize frontend
       uses: actions/docker/cli@master
       with:
         args: build -t tophatsteve/frontend:latest ./frontend
+
+    - name: Containerize reverse
+      uses: actions/docker/cli@master
+      with:
+        args: build -t tophatsteve/reverse:latest ./reverse/cmd
+        
+    - name: Containerize capitalise
+      uses: actions/docker/cli@master
+      with:
+        args: build -t tophatsteve/capitalise:latest ./capitalise/cmd       
+
+    - name: Docker login
+      uses: actions/docker/login@master
+      with:
+        secrets: 
+        - DOCKER_USERNAME
+        - DOCKER_PASSWORD
+        
