@@ -48,7 +48,5 @@ jobs:
     - name: Docker login
       uses: actions/docker/login@master
       with:
-        secrets: 
-        - DOCKER_USERNAME
-        - DOCKER_PASSWORD
-        
+        secrets: ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+
