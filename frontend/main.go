@@ -25,10 +25,10 @@ var capitalisePort string
 var serverPort string
 
 func init() {
-	reverseHost = os.Getenv("REVERSE_HOST")
-	reversePort = os.Getenv("REVERSE_PORT")
-	capitaliseHost = os.Getenv("CAPITALISE_HOST")
-	capitalisePort = os.Getenv("CAPITALISE_PORT")
+	reverseHost = os.Getenv("REVERSE_SERVICE_HOST")
+	reversePort = os.Getenv("REVERSE_SERVICE_PORT")
+	capitaliseHost = os.Getenv("CAPITALISE_SERVICE_HOST")
+	capitalisePort = os.Getenv("CAPITALISE_SERVICE_PORT")
 	serverPort = os.Getenv("PORT")
 }
 
@@ -37,6 +37,12 @@ func main() {
 	if serverPort == "" {
 		serverPort = "80"
 	}
+
+	println("Running on port:", serverPort)
+	println("Reverse running on host:", reverseHost)
+	println("Reverse running on port:", reversePort)
+	println("Capitalise running on host:", capitaliseHost)
+	println("Capitalise running on port:", capitalisePort)
 
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt)
