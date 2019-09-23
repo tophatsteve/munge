@@ -16,6 +16,11 @@ func init() {
 }
 
 func main() {
+
+	if serverPort == "" {
+		serverPort = "80"
+	}
+
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt)
 	lis, err := net.Listen("tcp", ":"+serverPort)
