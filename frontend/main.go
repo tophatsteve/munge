@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -49,7 +48,6 @@ func main() {
 
 	router := httprouter.New()
 	router.GET("/", rootHandler)
-	router.GET("/about", aboutHandler)
 	router.GET("/:text", textHandler)
 
 	httpServer := &http.Server{Addr: ":" + serverPort, Handler: router}
@@ -133,10 +131,7 @@ func textHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	respondErr(w, r, errors.New("please pass in some text to munge"), http.StatusBadRequest)
-}
-
-func aboutHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	// respondErr(w, r, errors.New("please pass in some text to munge"), http.StatusBadRequest)
 	var response = fmt.Sprintf(
 		"Running on port %s, reverse host %s, reverse port %s, capitalise host %s, capitalise port %s",
 		serverPort, reverseHost, reversePort, capitaliseHost, capitalisePort)
