@@ -48,7 +48,9 @@ func main() {
 
 	router := httprouter.New()
 	router.GET("/", rootHandler)
-	router.GET("/:text", textHandler)
+	router.GET("/reverse/:text", reverseHandler)
+	router.GET("/capitalise/:text", capitaliseHandler)
+	router.GET("/all/:text", textHandler)
 
 	httpServer := &http.Server{Addr: ":" + serverPort, Handler: router}
 
@@ -128,6 +130,29 @@ func textHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	respond(w, r, capitalisedText, http.StatusOK)
+}
+
+func capitaliseHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	text := p.ByName("text")
+
+	capitalisedText, err := capitaliseText(text)
+
+	if err != nil {
+		respondErr(w, r, err, http.StatusBadRequest)
+	}
+
+	respond(w, r, capitalisedText, http.StatusOK)
+}
+
+func reverseHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	text := p.ByName("text")
+	reversedText, err := reverseText(text)
+
+	if err != nil {
+		respondErr(w, r, err, http.StatusBadRequest)
+	}
+
+	respond(w, r, reversedText, http.StatusOK)
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
