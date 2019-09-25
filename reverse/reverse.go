@@ -1,6 +1,8 @@
 package reverse
 
 import (
+	"log"
+
 	"golang.org/x/net/context"
 )
 
@@ -23,9 +25,12 @@ func (s server) Reverse(ctx context.Context, in *ReverseRequest) (*ReverseRespon
 }
 
 func (s server) reverse(input string) string {
+	log.Printf("Return called with %s", input)
 	runes := []rune(input)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
 		runes[i], runes[j] = runes[j], runes[i]
 	}
-	return string(runes)
+	var returnString = string(runes)
+	log.Printf("Retunring %s", returnString)
+	return returnString
 }

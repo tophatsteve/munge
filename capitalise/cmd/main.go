@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net"
 	"os"
 	"os/signal"
@@ -18,8 +19,10 @@ func init() {
 func main() {
 
 	if serverPort == "" {
-		serverPort = "80"
+		serverPort = "8120"
 	}
+
+	log.Printf("Starting capitalise on port %s", serverPort)
 
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt)
@@ -29,7 +32,12 @@ func main() {
 		panic(err)
 	}
 
+	log.Printf("Start grpc server")
+
 	grpcServer := grpc.NewServer()
+
+	log.Printf("Register capitalise server")
+
 	capitalise.RegisterCapitaliseServer(grpcServer, capitalise.NewService())
 
 	go func() {
@@ -37,5 +45,8 @@ func main() {
 	}()
 
 	<-stop
+
+	log.Printf("Stopping capitalise service")
+
 	grpcServer.GracefulStop()
 }

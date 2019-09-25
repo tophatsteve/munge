@@ -1,6 +1,7 @@
 package capitalise
 
 import (
+	"log"
 	"strings"
 
 	"golang.org/x/net/context"
@@ -25,5 +26,8 @@ func (s server) Capitalise(ctx context.Context, in *CapitaliseRequest) (*Capital
 }
 
 func (s server) capitalise(input string) string {
-	return strings.ToUpper(input)
+	log.Printf("Capitalise called with %s", input)
+	var returnString = strings.ToUpper(input)
+	log.Printf("Retunring %s", returnString)
+	return returnString
 }

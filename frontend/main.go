@@ -37,11 +37,11 @@ func main() {
 		serverPort = "80"
 	}
 
-	println("Running on port:", serverPort)
-	println("Reverse running on host:", reverseHost)
-	println("Reverse running on port:", reversePort)
-	println("Capitalise running on host:", capitaliseHost)
-	println("Capitalise running on port:", capitalisePort)
+	log.Printf("Starting frontend on port %s", serverPort)
+	log.Printf("Reverse host: %s", reverseHost)
+	log.Printf("Reverse port: %s", reversePort)
+	log.Printf("Capitalise host: %s", capitaliseHost)
+	log.Printf("Capitalise port: %s", capitalisePort)
 
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt)
@@ -61,11 +61,16 @@ func main() {
 	}()
 
 	<-stop
+
+	log.Printf("Stopping frontend")
+
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 	httpServer.Shutdown(ctx)
 }
 
 func reverseText(text string) (string, error) {
+
+	log.Printf("Calling reverse with %s", text)
 
 	conn, err := grpc.Dial(
 		reverseHost+":"+reversePort,
@@ -87,10 +92,14 @@ func reverseText(text string) (string, error) {
 		return "", err
 	}
 
+	log.Printf("Reverse returned %s", respReverse.Text)
+
 	return respReverse.Text, nil
 }
 
 func capitaliseText(text string) (string, error) {
+
+	log.Printf("Calling capitalise with %s", text)
 
 	conn, err := grpc.Dial(
 		capitaliseHost+":"+capitalisePort,
@@ -111,6 +120,8 @@ func capitaliseText(text string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
+	log.Printf("Capitalise returned %s", respCapitalise.Text)
 
 	return respCapitalise.Text, nil
 }
