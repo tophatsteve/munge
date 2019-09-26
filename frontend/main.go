@@ -77,6 +77,7 @@ func reverseText(text string) (string, error) {
 		grpc.WithInsecure(),
 	)
 	if err != nil {
+		log.Printf("Reverse connection error %v", err)
 		return "", err
 	}
 	defer conn.Close()
@@ -89,6 +90,7 @@ func reverseText(text string) (string, error) {
 	respReverse, err := client.Reverse(ctx, &reqReverse)
 
 	if err != nil {
+		log.Printf("Reverse error %v", err)
 		return "", err
 	}
 
@@ -106,6 +108,7 @@ func capitaliseText(text string) (string, error) {
 		grpc.WithInsecure(),
 	)
 	if err != nil {
+		log.Printf("Capitalise connection error %v", err)
 		return "", err
 	}
 	defer conn.Close()
@@ -118,6 +121,7 @@ func capitaliseText(text string) (string, error) {
 	respCapitalise, err := client.Capitalise(ctx, &reqCapitalise)
 
 	if err != nil {
+		log.Printf("Capitalise error %v", err)
 		return "", err
 	}
 
