@@ -171,9 +171,8 @@ func reverseHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params)
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	// respondErr(w, r, errors.New("please pass in some text to munge"), http.StatusBadRequest)
 	var response = fmt.Sprintf(
-		"Running on port %s, reverse host %s, reverse port %s, capitalise host %s, capitalise port %s",
+		"Running on port %s\n, reverse host %s\n, reverse port %s\n, capitalise host %s\n, capitalise port %s",
 		serverPort, reverseHost, reversePort, capitaliseHost, capitalisePort)
 	respond(w, r, response, http.StatusOK)
 }
